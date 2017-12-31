@@ -1,29 +1,49 @@
 <template>
-  <v-app>
-    <v-navigation-drawer
-      fixed
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      app
-    >
-      <v-list>
-        <v-list-tile 
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+  <v-app id="games">
+    <v-navigation-drawer fixed :mini-variant="miniVariant" :clipped="$vuetify.breakpoint.width > 1264" v-model="drawer" class="grey lighten-4" app>
+      <v-list dense class="grey lighten-4">
+        <template v-for="(item, i) in items">
+          <v-layout
+            row
+            v-if="item.heading && !miniVariant"
+            align-center
+            :key="i"
+          >
+            <v-flex xs6>
+              <v-subheader v-if="item.heading">
+                {{ item.heading }}
+              </v-subheader>
+            </v-flex>
+            <v-flex xs6 class="text-xs-right">
+              <v-btn small flat>edit</v-btn>
+            </v-flex>
+          </v-layout>
+          <v-divider
+            dark
+            v-else-if="item.divider"
+            class="my-4"
+            :key="i"
+          ></v-divider>
+          <v-list-tile
+            :key="i"
+            v-else
+            @click=""
+            value="true"
+          >
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="grey--text">
+                {{ item.text }}
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+    <v-toolbar fixed app :clipped-left="clipped" color="primary">
+      <v-toolbar-side-icon v-if="$vuetify.breakpoint.width <= 1264" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
@@ -40,19 +60,9 @@
       </v-btn>
     </v-toolbar>
     <v-content>
-      <v-container fluid>
+      <v-container fluid fill-height class="grey lighten-4">
         <v-slide-y-transition mode="out-in">
-          <v-layout column align-center>
-            <img src="/public/v.png" alt="Vuetify.js" class="mb-5" />
-            <blockquote>
-              &#8220;First, solve the problem. Then, write the code.&#8221;
-              <footer>
-                <small>
-                  <em>&mdash;John Johnson</em>
-                </small>
-              </footer>
-            </blockquote>
-          </v-layout>
+          <router-view/>
         </v-slide-y-transition>
       </v-container>
     </v-content>
@@ -60,7 +70,7 @@
       temporary
       :right="right"
       v-model="rightDrawer"
-      fixed
+      fixed 
     >
       <v-list>
         <v-list-tile @click.native="right = !right">
@@ -81,19 +91,45 @@
 import 'vuetify/dist/vuetify.min.css'
 
 export default {
-  data () {
-    return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      items: [
-        { icon: 'bubble_chart', title: 'Inspire' }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    }
-  }
+  data: () => ({
+    clipped: true,
+    drawer: true,
+    fixed: false,
+    items: [
+      { icon: 'bubble_chart', text: 'Inspire' },
+      { icon: 'lightbulb_outline', text: 'Notes' },
+      { icon: 'touch_app', text: 'Reminders' },
+      { divider: true },
+      { heading: 'Labels' },
+      { icon: 'add', text: 'Create new label' },
+      { divider: true },
+      { icon: 'archive', text: 'Archive' },
+      { icon: 'delete', text: 'Trash' },
+      { divider: true },
+      { icon: 'settings', text: 'Settings' },
+      { icon: 'chat_bubble', text: 'Trash' },
+      { icon: 'help', text: 'Help' },
+      { icon: 'phonelink', text: 'App downloads' },
+      { icon: 'keyboard', text: 'Keyboard shortcuts' }
+    ],
+    miniVariant: true,
+    right: true,
+    rightDrawer: false,
+    title: 'Vuetify.js'
+  })
 }
 </script>
+
+<style>
+#keep main .container {
+  height: 660px;
+}
+
+.navigation-drawer__border {
+  display: none;
+}
+
+.text {
+  font-weight: 400;
+}
+</style>
