@@ -124,7 +124,7 @@
           <v-icon dark>arrow_drop_down</v-icon>
         </v-toolbar-title>
         <v-list>
-          <v-list-tile v-for="group in groups" :key="group" @click="selectedGroup = group">
+          <v-list-tile v-for="group in groups" :key="group.title" @click="selectedGroup = group">
             <v-list-tile-title v-text="group.title"></v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -134,7 +134,7 @@
       </v-btn>
     </v-toolbar>
     <v-content>
-      <v-container fluid fill-height class="grey lighten-4">
+      <v-container fluid fill-height grid-list-md class="grey lighten-4">
         <v-slide-y-transition mode="out-in">
           <router-view/>
         </v-slide-y-transition>
@@ -234,7 +234,7 @@ export default {
       { icon: 'phonelink', text: 'App downloads' },
       { icon: 'keyboard', text: 'Keyboard shortcuts' }
     ],
-    groups : [
+    groups: [
       { title: 'Group 1' },
       { title: 'Group 2' },
       { title: 'Group 3' },
