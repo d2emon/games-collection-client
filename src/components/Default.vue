@@ -79,7 +79,6 @@
                             <v-text-field name="players" type="number" label="Players" id="players"></v-text-field>
                             <v-select v-bind:items="companies" v-model="game.publisher" label="Publisher" item-value="text"></v-select>
                             <v-select v-bind:items="companies" v-model="game.developer" label="Developer" item-value="text"></v-select>
-                            <v-text-field name="release" label="Release" id="release"></v-text-field>
                             <v-menu
                               lazy
                               :close-on-content-click="false"
@@ -93,7 +92,7 @@
                             >
                               <v-text-field
                                 slot="activator"
-                                label="Picker in menu"
+                                label="Release Date"
                                 v-model="game.release"
                                 prepend-icon="event"
                                 readonly
@@ -111,16 +110,71 @@
                             <v-select v-bind:items="genres" v-model="game.genre" label="Genre" item-value="text"></v-select>
                         </v-flex>
                         <v-flex xs12>
-                            <v-text-field multi-line name="description" label="Description" id="description"></v-text-field>
+                          <v-text-field multi-line name="description" label="Description" id="description"></v-text-field>
                         </v-flex>
                       </v-layout>
                     </v-tabs-content>
-            <v-tabs-content
-              :key="'Details'"
-              :id="'Details'"
-            >
-              <h1>Details</h1>
-            </v-tabs-content>
+                    <v-tabs-content
+                      key="Details"
+                      id="Details"
+                    >
+                      <v-layout row wrap>
+                        <v-flex xs12>
+                          <v-text-field name="rate" type="number" label="Rate" id="rate" v-model="game.rate"></v-text-field>
+                          <v-slider v-model="game.rate" thumb-label step="10" ticks></v-slider>
+                        </v-flex>
+                        <v-flex xs6>
+                          <v-text-field name="progress" type="number" label="Progress" id="progress"i v-model="game.progress"></v-text-field>
+                        </v-flex>
+                        <v-flex xs6>
+                          <v-menu
+                            lazy
+                            :close-on-content-click="false"
+                            v-model="selectAddDate"
+                            transition="scale-transition"
+                            offset-y
+                            full-width
+                            :nudge-right="40"
+                            max-width="290px"
+                            min-width="290px"
+                          >
+                            <v-text-field
+                              slot="activator"
+                              label="Date"
+                              v-model="game.added"
+                              prepend-icon="event"
+                              readonly
+                            ></v-text-field>
+                            <v-date-picker v-model="game.added" no-title scrollable actions>
+                              <template slot-scope="{ save, cancel }">
+                                <v-card-actions>
+                                  <v-spacer></v-spacer>
+                                  <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
+                                  <v-btn flat color="primary" @click="save">OK</v-btn>
+                                </v-card-actions>
+                              </template>
+                            </v-date-picker>
+                          </v-menu>
+                        </v-flex>
+                        <v-flex xs6>
+                          <v-card>
+                            <v-card-text>
+                              <img :src="game.image">
+                            </v-card-text>
+                          </v-card>
+                        </v-flex>
+                        <v-flex xs6>
+                          <v-card>
+                            <v-card-text>
+                              <img :src="game.image">
+                            </v-card-text>
+                          </v-card>
+                        </v-flex>
+                        <v-flex xs12>
+                          <v-text-field multi-line name="comments" label="Comments" id="comments"></v-text-field>
+                        </v-flex>
+                      </v-layout>
+                    </v-tabs-content>
             <v-tabs-content
               :key="'Hints'"
               :id="'Hints'"
