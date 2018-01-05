@@ -47,7 +47,7 @@ export default {
       { id: 3, title: 'Ali Connors', avatar: '/static/doc-images/lists/3.jpg' },
       { id: 4, title: 'Cindy Baker', avatar: '/static/doc-images/lists/4.jpg' }
     ],
-    game: null,
+    game: { id: '', title: '', avatar: '' },
 
     active: null,
     selectDate: null

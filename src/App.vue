@@ -71,6 +71,7 @@
             <v-list-tile
               :key="i"
               v-else
+              :to="item.to"
               @click=""
               value="true"
             >
@@ -91,7 +92,7 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
-      <v-btn icon @click.stop="">
+      <v-btn icon to="/add">
         <v-icon>add</v-icon>
       </v-btn>
       <v-btn icon @click.stop="">
@@ -171,7 +172,7 @@ export default {
     fixed: false,
     items: [
       { heading: 'File' },
-      { icon: 'add', text: 'Add Item' },
+      { icon: 'add', text: 'Add Item', to: '/add' },
       { icon: 'list', text: 'Properties' },
       { icon: 'pan_tool', text: 'On hands' },
       { icon: 'bubble_chart', text: 'Inspire' },
