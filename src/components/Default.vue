@@ -16,8 +16,8 @@
             <v-icon>more_vert</v-icon>
           </v-btn>
         </v-toolbar>
-        <v-list>
-          <v-list-tile avatar v-for="item in items" v-bind:key="item.title" @click="">
+        <v-list id="gameList">
+          <v-list-tile avatar v-for="item in items" v-bind:key="item.title" @click="selectGame(item.id)">
             <v-list-tile-content>
               <v-list-tile-title v-text="item.title"></v-list-tile-title>
             </v-list-tile-content>
@@ -28,7 +28,7 @@
         </v-list>
       </v-card>
     </v-flex>
-    <v-flex xs8>
+    <v-flex xs8 v-if="game">
       <v-layout row wrap>
         <v-flex xs12>
             <v-layout row wrap>
@@ -37,6 +37,7 @@
                   name="game-id"
                   label="Game ID"
                   id="gameid"
+                  v-model="game.id"
                 ></v-text-field>
               </v-flex>
               <v-flex xs9>
@@ -44,19 +45,17 @@
                   name="title"
                   label="Game Title"
                   id="title"
+                  v-model="game.title"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 id="gameDetails">
                 <v-tabs v-model="active">
                   <v-tabs-bar class="primary" dark>
-                    <v-tabs-item
-                      v-for="tab in tabs"
-                      :key="tab"
-                      :href="'#' + tab"
-                      ripple
-                    >
-                      {{ tab }}
-                    </v-tabs-item>
+                    <v-tabs-item :key="Common" :href="'#Common'" ripple>Common</v-tabs-item>
+                    <v-tabs-item :key="Details" :href="'#Details'" ripple>Details</v-tabs-item>
+                    <v-tabs-item :key="Hints" :href="'#Hints'" ripple>Hints</v-tabs-item>
+                    <v-tabs-item :key="Hands" :href="'#Hands'" ripple>Hands</v-tabs-item>
+                    <v-tabs-item :key="Tags" :href="'#Tags'" ripple>Tags</v-tabs-item>
                     <v-tabs-slider color="yellow"></v-tabs-slider>
                   </v-tabs-bar>
                   <v-tabs-items>
@@ -69,7 +68,7 @@
                           <v-layout column>
                             <v-card>
                               <v-card-text>
-                                <img :src="game.image">
+                                <img :src="game.avatar">
                               </v-card-text>
                             </v-card>
                           </v-layout>
@@ -224,17 +223,10 @@ export default {
   data: () => ({
     msg: 'Welcome to Your Vue.js App',
     items: [
-      { title: 'Jason Oner', avatar: '/static/doc-images/lists/1.jpg' },
-      { title: 'Travis Howard', avatar: '/static/doc-images/lists/2.jpg' },
-      { title: 'Ali Connors', avatar: '/static/doc-images/lists/3.jpg' },
-      { title: 'Cindy Baker', avatar: '/static/doc-images/lists/4.jpg' },
-    ],
-    tabs: [
-      'Common',
-      'Details',
-      'Hints',
-      'Hands',
-      'Tags'
+      { id: 1, title: 'Jason Oner', avatar: '/static/doc-images/lists/1.jpg' },
+      { id: 2, title: 'Travis Howard', avatar: '/static/doc-images/lists/2.jpg' },
+      { id: 3, title: 'Ali Connors', avatar: '/static/doc-images/lists/3.jpg' },
+      { id: 4, title: 'Cindy Baker', avatar: '/static/doc-images/lists/4.jpg' },
     ],
     platforms: [
       'PC',
@@ -248,13 +240,16 @@ export default {
       'Genre 1',
       'Genre 2'
     ],
-    game: {
-      image: '/static/doc-images/lists/2.jpg'
-    },
+    game: null,
 
     active: null,
     selectDate: null
-  })
+  }),
+  methods: {
+    selectGame: function (id) {
+      this.game = this.items[id - 1]
+    }
+  }
 }
 </script>
 
@@ -265,5 +260,13 @@ h1, h2 {
 }
 a {
   color: #42b983;
+}
+#gameDetails {
+  height: 80vh;
+  overflow: auto;
+}
+#gameList {
+  height: 80vh;
+  overflow: auto;
 }
 </style>
