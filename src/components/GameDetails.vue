@@ -9,7 +9,7 @@
                   name="game-id"
                   label="Game ID"
                   id="gameid"
-                  v-model="game.id"
+                  v-model="game._id"
                 ></v-text-field>
               </v-flex>
               <v-flex xs9>
@@ -40,7 +40,7 @@
                           <v-layout column>
                             <v-card>
                               <v-card-text>
-                                <img :src="game.avatar">
+                                <img :src="game.image">
                               </v-card-text>
                             </v-card>
                           </v-layout>
@@ -81,7 +81,7 @@
                             <v-select v-bind:items="genres" v-model="game.genre" label="Genre" item-value="text"></v-select>
                         </v-flex>
                         <v-flex xs12>
-                          <v-text-field multi-line name="description" label="Description" id="description"></v-text-field>
+                          <v-text-field multi-line name="description" label="Description" id="description" v-model="game.body"></v-text-field>
                         </v-flex>
                       </v-layout>
                     </v-tabs-content>
@@ -193,9 +193,10 @@
 export default {
   name: 'GameDetails',
   props: {
-    game: null
+    id: null
   },
   data: () => ({
+    game: null,
     msg: 'Message',
     platforms: [
       'PC',
@@ -213,7 +214,23 @@ export default {
     active: null,
     selectDate: null,
     selectAddDate: null
-  })
+  }),
+  methods: {
+    loadGame: function (id) {
+      this.$store.dispatch('loadGame', id).then(() => {
+        console.log('Game loaded')
+        console.log(this.$store.state.message)
+        console.log('Game')
+        console.log(this.$store.state.game)
+        this.game = this.$store.state.game
+      })
+    }
+  },
+  watch: {
+    id: function (val) {
+      this.loadGame(val)
+    }
+  }
 }
 </script>
 

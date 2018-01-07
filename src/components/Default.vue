@@ -29,7 +29,7 @@
         </v-list>
       </v-card>
     </v-flex>
-    <game-details :game="game"></game-details>
+    <game-details :id="gameId"></game-details>
   </v-layout>
 </template>
 
@@ -43,14 +43,14 @@ export default {
   },
   data: () => ({
     items: [],
-    game: null,
+    gameId: null,
 
     active: null,
     selectDate: null
   }),
   methods: {
     selectGame: function (id) {
-      this.game = { id: id, title: 'Jason Oner', image: '/static/doc-images/lists/1.jpg' }
+      this.gameId = id
     },
     refreshGames: function () {
       this.$store.dispatch('refreshMessage').then(() => {
