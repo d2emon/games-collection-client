@@ -166,6 +166,7 @@
               :id="'Hands'"
             >
               <h1>Hands</h1>
+              <div> Game: {{game}}</div>
             </v-tabs-content>
             <v-tabs-content
               :key="'Tags'"
