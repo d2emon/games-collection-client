@@ -3,6 +3,17 @@
     <v-flex xs8 v-if="game">
       <v-layout row wrap>
         <v-flex xs12>
+            <v-btn
+              color="pink"
+              dark
+              fixed
+              bottom
+              right
+              fab
+              @click="saveGame"
+            >
+              <v-icon>add</v-icon>
+            </v-btn>
             <v-layout row wrap>
               <v-flex xs3>
                 <v-text-field
@@ -17,7 +28,7 @@
                   name="title"
                   label="Game Title"
                   id="title"
-                  v-model="game.title"
+                  v-model="game.name"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12 id="gameDetails">
@@ -81,7 +92,7 @@
                             <v-select v-bind:items="genres" v-model="game.genre" label="Genre" item-value="text"></v-select>
                         </v-flex>
                         <v-flex xs12>
-                          <v-text-field multi-line name="description" label="Description" id="description" v-model="game.body"></v-text-field>
+                          <v-text-field multi-line name="description" label="Description" id="description" v-model="game.idescription"></v-text-field>
                         </v-flex>
                       </v-layout>
                     </v-tabs-content>
@@ -223,6 +234,17 @@ export default {
         console.log('Game')
         console.log(this.$store.state.game)
         this.game = this.$store.state.game
+      })
+    },
+    saveGame: function () {
+      if (!this.game) {
+        return
+      }
+      this.$store.dispatch('saveGame', this.game).then(() => {
+        console.log(this.game)
+        console.log('Game saved')
+        console.log(this.$store.state.game)
+        alert('Saved')
       })
     }
   },

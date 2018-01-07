@@ -59,6 +59,23 @@ const actions = {
           resolve()
         })
     })
+  },
+  saveGame ({ commit }, game) {
+    return new Promise((resolve, reject) => {
+      axios.put(server + '/games/' + game._id, game)
+        .then(response => {
+          console.log('Save sent')
+          console.log(response)
+          resolve()
+        })
+        .catch(error => {
+          console.log(error)
+          commit('addError', {
+            error: error
+          })
+          resolve()
+        })
+    })
   }
 }
 

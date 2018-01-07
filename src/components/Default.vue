@@ -19,7 +19,7 @@
         <v-list id="gameList">
           <v-list-tile avatar v-for="item in items" v-bind:key="item._id" @click="selectGame(item._id)">
             <v-list-tile-content>
-              <v-list-tile-title v-if="item.title" v-text="item.title"></v-list-tile-title>
+              <v-list-tile-title v-if="item.name" v-text="item.name"></v-list-tile-title>
               <v-list-tile-title v-else v-text="'Untitled'"></v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-avatar v-if="item.image">
