@@ -22,8 +22,8 @@
               <v-list-tile-title v-if="item.name" v-text="item.name"></v-list-tile-title>
               <v-list-tile-title v-else v-text="'Untitled'"></v-list-tile-title>
             </v-list-tile-content>
-            <v-list-tile-avatar v-if="item.image">
-              <img v-bind:src="item.image"/>
+            <v-list-tile-avatar v-if="item.imageURL">
+              <img v-bind:src="item.imageURL"/>
             </v-list-tile-avatar>
           </v-list-tile>
         </v-list>

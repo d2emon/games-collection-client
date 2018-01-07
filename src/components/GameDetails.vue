@@ -50,9 +50,7 @@
                         <v-flex xs6>
                           <v-layout column>
                             <v-card>
-                              <v-card-text>
-                                <img :src="game.image">
-                              </v-card-text>
+                              <v-card-media :src="game.imageURL" height="200px"></v-card-media>
                             </v-card>
                           </v-layout>
                         </v-flex>
@@ -92,7 +90,7 @@
                             <v-select v-bind:items="genres" v-model="game.genre" label="Genre" item-value="text"></v-select>
                         </v-flex>
                         <v-flex xs12>
-                          <v-text-field multi-line name="description" label="Description" id="description" v-model="game.idescription"></v-text-field>
+                          <v-text-field multi-line name="description" label="Description" id="description" v-model="game.description"></v-text-field>
                         </v-flex>
                       </v-layout>
                     </v-tabs-content>
@@ -141,14 +139,14 @@
                         <v-flex xs6>
                           <v-card>
                             <v-card-text>
-                              <img :src="game.image">
+                              <img :src="game.imageURL">
                             </v-card-text>
                           </v-card>
                         </v-flex>
                         <v-flex xs6>
                           <v-card>
                             <v-card-text>
-                              <img :src="game.image">
+                              <img :src="game.imageURL">
                             </v-card-text>
                           </v-card>
                         </v-flex>
