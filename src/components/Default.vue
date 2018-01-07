@@ -17,12 +17,13 @@
           </v-btn>
         </v-toolbar>
         <v-list id="gameList">
-          <v-list-tile avatar v-for="item in items" v-bind:key="item.title" @click="selectGame(item.id)">
+          <v-list-tile avatar v-for="item in items" v-bind:key="item._id" @click="selectGame(item._id)">
             <v-list-tile-content>
-              <v-list-tile-title v-text="item.title"></v-list-tile-title>
+              <v-list-tile-title v-if="item.title" v-text="item.title"></v-list-tile-title>
+              <v-list-tile-title v-else v-text="'Untitled'"></v-list-tile-title>
             </v-list-tile-content>
-            <v-list-tile-avatar>
-              <img v-bind:src="item.avatar"/>
+            <v-list-tile-avatar v-if="item.image">
+              <img v-bind:src="item.image"/>
             </v-list-tile-avatar>
           </v-list-tile>
         </v-list>
@@ -41,12 +42,7 @@ export default {
     GameDetails
   },
   data: () => ({
-    items: [
-      { id: 1, title: 'Jason Oner', avatar: '/static/doc-images/lists/1.jpg' },
-      { id: 2, title: 'Travis Howard', avatar: '/static/doc-images/lists/2.jpg' },
-      { id: 3, title: 'Ali Connors', avatar: '/static/doc-images/lists/3.jpg' },
-      { id: 4, title: 'Cindy Baker', avatar: '/static/doc-images/lists/4.jpg' }
-    ],
+    items: [],
     game: null,
 
     active: null,
@@ -54,8 +50,18 @@ export default {
   }),
   methods: {
     selectGame: function (id) {
-      this.game = this.items[id - 1]
+      this.game = { id: id, title: 'Jason Oner', image: '/static/doc-images/lists/1.jpg' }
+    },
+    refreshGames: function () {
+      this.$store.dispatch('refreshMessage').then(() => {
+        console.log('Games refreshed')
+        console.log(this.$store.state.message)
+        this.items = this.$store.state.message
+      })
     }
+  },
+  mounted: function () {
+    this.refreshGames()
   }
 }
 </script>
