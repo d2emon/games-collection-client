@@ -4,6 +4,7 @@ const server = 'http://localhost:3000'
 
 const state = {
   message: '',
+  companies: [],
   games: [],
   game: null,
   errors: []
@@ -12,6 +13,9 @@ const state = {
 const mutations = {
   updateMessage (state, payload) {
     state.message = payload
+  },
+  updateCompanies (state, companies) {
+    state.companies = companies
   },
   updateGames (state, games) {
     state.games = games
@@ -32,6 +36,24 @@ const actions = {
           console.log(response)
           commit('updateMessage', response.data)
           commit('updateGames', response.data)
+          resolve()
+        })
+        .catch(error => {
+          console.log(error)
+          commit('addError', {
+            error: error
+          })
+          resolve()
+        })
+    })
+  },
+  loadCompanies ({ commit }) {
+    console.log('Trying to get companies')
+    return new Promise((resolve, reject) => {
+      axios.get(server + '/companies')
+        .then(response => {
+          console.log(response)
+          commit('updateCompanies', response.data)
           resolve()
         })
         .catch(error => {

@@ -57,8 +57,8 @@
                         <v-flex xs6>
                             <v-select v-bind:items="platforms" v-model="game.platform" label="Platform" item-value="text"></v-select>
                             <v-text-field name="players" type="number" label="Players" id="players"></v-text-field>
-                            <v-select v-bind:items="companies" v-model="game.publisher" label="Publisher" item-value="text"></v-select>
-                            <v-select v-bind:items="companies" v-model="game.developer" label="Developer" item-value="text"></v-select>
+                            <v-select v-bind:items="companies" v-model="game.publisher" label="Publisher" item-text="title" item-value="id"></v-select>
+                            <v-select v-bind:items="companies" v-model="game.developer" label="Developer" item-text="title" item-value="id"></v-select>
                             <v-menu
                               lazy
                               :close-on-content-click="false"
@@ -212,10 +212,7 @@ export default {
       'PC',
       'Speccy'
     ],
-    companies: [
-      'Company 1',
-      'Company 2'
-    ],
+    companies: [],
     genres: [
       'Genre 1',
       'Genre 2'
@@ -227,6 +224,14 @@ export default {
   }),
   methods: {
     loadGame: function (id) {
+      this.$store.dispatch('loadCompanies').then(() => {
+        console.log('Companies loaded')
+        console.log(this.$store.state.message)
+        console.log('Company')
+        console.log(this.$store.state.companies)
+        this.companies = this.$store.state.companies
+      })
+
       this.$store.dispatch('loadGame', id).then(() => {
         console.log('Game loaded')
         console.log(this.$store.state.message)
