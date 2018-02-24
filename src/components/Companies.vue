@@ -1,5 +1,22 @@
 <template>
   <v-layout row wrap>
+    <v-dialog
+      v-model="ask"
+      persistent
+      max-width="400px"
+    >
+      <v-card>
+        <v-card-title class="headline">{{ company.name }}</v-card-title>
+        <v-card-text>
+          Do you really want to delete "{{ company.name }}"?
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="success" @click="closeDialog(true)">Yes</v-btn>
+          <v-btn color="error" @click="closeDialog(false)">No</v-btn>
+        </v-card-actions> 
+      </v-card>
+    </v-dialog>
     <v-flex xs12>
       <v-card>
         <v-toolbar color="primary" dark>
@@ -56,8 +73,8 @@
             <v-list-tile-avatar>
               <img v-bind:src="item.imageURL"/>
             </v-list-tile-avatar>
-            <v-btn icon>
-              <v-icon>more_vert</v-icon>
+            <v-btn icon @click.stop="delCompany(item)">
+              <v-icon>delete</v-icon>
             </v-btn>
           </v-list-tile>
         </v-list>
@@ -74,6 +91,7 @@ export default {
   },
   data: function () {
     return {
+      ask: false,
       editItem: false,
       valid: true,
       company: {
@@ -89,6 +107,25 @@ export default {
     }
   },
   methods: {
+    loadCompany: function (item) {
+      if (!item) {
+        this.company = {
+          name: '',
+          alternateNames: [],
+          image: null,
+          description: ''
+        }
+        return
+      }
+
+      this.company = {
+        _id: item._id,
+        name: item.name,
+        alternateNames: item.alternateNames,
+        image: item.image,
+        description: item.description
+      }
+    },
     selectCompany: function (item) {
       console.log(this.items)
       this.$store.dispatch('loadCompany', item._id).then(() => {
@@ -96,26 +133,19 @@ export default {
         console.log(this.$store.state.message)
         console.log('Company')
         console.log(this.$store.state.company)
-        let c = this.$store.state.company
-        this.company = {
-          _id: c._id,
-          name: c.name,
-          alternateNames: c.alternateNames,
-          image: c.image,
-          description: c.description
-        }
+        this.loadCompany(this.$store.state.company)
         console.log(this.company)
         this.editItem = true
       })
     },
     addCompany: function () {
-      this.company = {
-        name: '',
-        alternateNames: [],
-        image: null,
-        description: ''
-      }
+      this.loadCompany(null)
       this.editItem = true
+    },
+    delCompany: function (item) {
+      console.log(item)
+      this.loadCompany(item)
+      this.ask = true
     },
     loadCompanies: function () {
       this.$store.dispatch('loadCompanies').then(() => {
@@ -123,6 +153,17 @@ export default {
         console.log(this.$store.state.message)
         console.log('Companies')
         console.log(this.$store.state.companies)
+      })
+    },
+    closeDialog: function (yes) {
+      this.ask = false
+      if (!yes) return
+      this.$store.dispatch('delCompany', this.company).then(() => {
+        console.log(this.company)
+        console.log('Company deleted')
+        this.loadCompanies()
+        this.editItem = false
+        alert('Deleted')
       })
     },
     submit: function () {

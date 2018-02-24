@@ -152,6 +152,23 @@ const actions = {
           })
       }
     })
+  },
+  delCompany ({ commit }, company) {
+    return new Promise((resolve, reject) => {
+      axios.delete(server + '/companies/' + company._id)
+        .then(response => {
+          console.log('Del sent')
+          console.log(response)
+          resolve()
+        })
+        .catch(error => {
+          console.log(error)
+          commit('addError', {
+            error: error
+          })
+          resolve()
+        })
+    })
   }
 }
 
