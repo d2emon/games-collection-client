@@ -172,6 +172,7 @@ export default {
     fixed: false,
     items: [
       { heading: 'File' },
+      { icon: 'list', text: 'Companies', to: '/companies' },
       { icon: 'add', text: 'Add Item', to: '/add' },
       { icon: 'list', text: 'Properties' },
       { icon: 'pan_tool', text: 'On hands' },

@@ -5,6 +5,7 @@ const server = 'http://localhost:3000'
 const state = {
   message: '',
   companies: [],
+  company: null,
   games: [],
   game: null,
   errors: []
@@ -16,6 +17,9 @@ const mutations = {
   },
   updateCompanies (state, companies) {
     state.companies = companies
+  },
+  updateCompany (state, company) {
+    state.company = company
   },
   updateGames (state, games) {
     state.games = games
@@ -82,6 +86,23 @@ const actions = {
         })
     })
   },
+  loadCompany ({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios.get(server + '/companies/' + id)
+        .then(response => {
+          console.log(response)
+          commit('updateCompany', response.data)
+          resolve()
+        })
+        .catch(error => {
+          console.log(error)
+          commit('addError', {
+            error: error
+          })
+          resolve()
+        })
+    })
+  },
   saveGame ({ commit }, game) {
     return new Promise((resolve, reject) => {
       axios.put(server + '/games/' + game._id, game)
@@ -97,6 +118,39 @@ const actions = {
           })
           resolve()
         })
+    })
+  },
+  saveCompany ({ commit }, company) {
+    return new Promise((resolve, reject) => {
+      if (company._id) {
+        axios.put(server + '/companies/' + company._id, company)
+          .then(response => {
+            console.log('Save sent')
+            console.log(response)
+            resolve()
+          })
+          .catch(error => {
+            console.log(error)
+            commit('addError', {
+              error: error
+            })
+            resolve()
+          })
+      } else {
+        axios.post(server + '/companies', company)
+          .then(response => {
+            console.log('Create sent')
+            console.log(response)
+            resolve()
+          })
+          .catch(error => {
+            console.log(error)
+            commit('addError', {
+              error: error
+            })
+            resolve()
+          })
+      }
     })
   }
 }
