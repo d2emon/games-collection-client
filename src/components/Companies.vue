@@ -36,35 +36,57 @@
             <v-icon>more_vert</v-icon>
           </v-btn>
         </v-toolbar>
-        <v-form
+        <v-card
           v-if="editItem"
-          v-model="valid"
-          ref="companyForm"
-          lazy-validation
         >
-          <v-text-field
-            label="Name"
-            v-model="company.name"
-            :rules="nameRules"
-            required
-          ></v-text-field>
-          <v-text-field
-            label="Description"
-            v-model="company.description"
-            textarea
-          ></v-text-field>
-          <v-btn
-            @click="submit"
-            :disabled="!valid"
-          >
-            submit
-          </v-btn>
-          <v-btn
-            @click="clear"
-          >
-            clear
-          </v-btn>
-        </v-form>
+          <v-card-text>
+            <v-form
+              v-model="valid"
+              ref="companyForm"
+              lazy-validation
+            >
+              <v-layout row wrap>
+                <v-flex xs12 sm6>
+                  <v-text-field
+                    label="Name"
+                    v-model="company.name"
+                    :rules="nameRules"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs10 sm4>
+                  <v-text-field
+                    label="Image"
+                    v-model="company.image"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs2>
+                  <v-avatar>
+                    <img v-bind:src="company.imageURL"/>
+                  </v-avatar>
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    label="Description"
+                    v-model="company.description"
+                    textarea
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+              <v-btn
+                @click="submit"
+                :disabled="!valid"
+              >
+                submit
+              </v-btn>
+              <v-btn
+                @click="clear"
+              >
+                clear
+              </v-btn>
+            </v-form>
+          </v-card-text>
+        </v-card>
         <v-list>
           <v-list-tile avatar v-for="item in items" v-bind:key="item.name" @click="selectCompany(item)">
             <v-list-tile-content>
@@ -102,7 +124,7 @@ export default {
       },
       nameRules: [
         v => !!v || 'Name is required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+        v => (v && v.length <= 32) || 'Name must be less than 32 characters'
       ]
     }
   },
@@ -110,10 +132,9 @@ export default {
     loadCompany: function (item) {
       if (!item) {
         this.company = {
-          name: '',
-          alternateNames: [],
-          image: null,
-          description: ''
+          // name: '',
+          alternateNames: []
+          // description: ''
         }
         return
       }
@@ -123,6 +144,7 @@ export default {
         name: item.name,
         alternateNames: item.alternateNames,
         image: item.image,
+        imageURL: item.imageURL,
         description: item.description
       }
     },
