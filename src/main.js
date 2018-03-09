@@ -1,22 +1,24 @@
 import Vue from 'vue'
-// import Vuex from 'vuex' // ?
-import Vuetify from 'vuetify'
+import Vuex from 'vuex'
+// import axios from 'axios'
+
 // import BootstrapVue from 'bootstrap-vue'
+import Vuetify from 'vuetify'
 // import VueCookie from 'vue-cookie'
+
+import App from './App'
 import router from './router'
 import store from './store'
-// import 'vuetify/dist/vuetify.css'
-import App from './App'
 
 // import 'vue-material-design-icons/styles.css'
 // import 'mdi/css/materialdesignicons.css'
 
 Vue.config.productionTip = false
 
-// Vue.use(Vuex)
+Vue.use(Vuex)
+// Vue.use(BootstrapVue)
 Vue.use(Vuetify)
 // Vue.use(VueCookie)
-// Vue.use(BootstrapVue)
 
 /* eslint-disable no-new */
 new Vue({

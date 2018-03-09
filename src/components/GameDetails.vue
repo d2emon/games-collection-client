@@ -172,22 +172,22 @@ export default {
   }),
   methods: {
     loadGame: function (id) {
-      this.$store.dispatch('loadGame', id).then(() => {
+      this.$store.dispatch('game/loadGame', id).then(() => {
         console.log('Game loaded')
-        console.log(this.$store.state.message)
+        console.log(this.$store.state.game.message)
         console.log('Game')
-        console.log(this.$store.state.game)
-        this.game = this.$store.state.game
+        console.log(this.$store.state.game.game)
+        this.game = this.$store.state.game.game
       })
     },
     saveGame: function () {
       if (!this.game) {
         return
       }
-      this.$store.dispatch('saveGame', this.game).then(() => {
+      this.$store.dispatch('game/saveGame', this.game).then(() => {
         console.log(this.game)
         console.log('Game saved')
-        console.log(this.$store.state.game)
+        console.log(this.$store.state.game.game)
         alert('Saved')
       })
     }

@@ -71,9 +71,9 @@ export default {
     'game'
   ],
   computed: {
-    companies: function () { return this.$store.state.companies },
-    platforms: function () { return this.$store.state.platforms },
-    genres: function () { return this.$store.state.genres }
+    companies: function () { return this.$store.state.company.companies },
+    platforms: function () { return this.$store.state.game.platforms },
+    genres: function () { return this.$store.state.game.genres }
   },
   data: () => ({
     active: null,
@@ -82,11 +82,11 @@ export default {
   }),
   methods: {
     loadCompanies () {
-      this.$store.dispatch('loadCompanies').then(() => {
+      this.$store.dispatch('company/loadCompanies').then(() => {
         console.log('Companies loaded')
-        console.log(this.$store.state.message)
+        console.log(this.$store.state.company.message)
         console.log('Companies')
-        console.log(this.$store.state.companies)
+        console.log(this.$store.state.company.companies)
       })
     }
   },

@@ -1,69 +1,31 @@
 <template>
   <v-layout row wrap>
     <v-flex xs3>
-      <v-card>
-        <v-toolbar color="primary" dark>
-          <v-toolbar-side-icon></v-toolbar-side-icon>
-          <v-toolbar-title>Games</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>search</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon>keyboard_arrow_down</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon>more_vert</v-icon>
-          </v-btn>
-        </v-toolbar>
-        <v-list id="gameList">
-          <v-list-tile avatar v-for="item in items" v-bind:key="item._id" @click="selectGame(item._id)">
-            <v-list-tile-content>
-              <v-list-tile-title v-if="item.name" v-text="item.name"></v-list-tile-title>
-              <v-list-tile-title v-else v-text="'Untitled'"></v-list-tile-title>
-            </v-list-tile-content>
-            <v-list-tile-avatar v-if="item.imageURL">
-              <img v-bind:src="item.imageURL"/>
-            </v-list-tile-avatar>
-          </v-list-tile>
-        </v-list>
-      </v-card>
+      <game-list @select="selectGame" />
     </v-flex>
     <v-flex xs9>
-      <game-details :id="gameId"></game-details>
+      <game-details :id="gameId" />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
+import GameList from './GameList'
 import GameDetails from './GameDetails'
 
 export default {
   name: 'Default',
   components: {
+    GameList,
     GameDetails
   },
   data: () => ({
-    items: [],
-    gameId: null,
-
-    active: null,
-    selectDate: null
+    gameId: null
   }),
   methods: {
-    selectGame: function (id) {
-      this.gameId = id
-    },
-    refreshGames: function () {
-      this.$store.dispatch('refreshMessage').then(() => {
-        console.log('Games refreshed')
-        console.log(this.$store.state.message)
-        this.items = this.$store.state.message
-      })
+    selectGame (payload) {
+      this.gameId = payload.id
     }
-  },
-  mounted: function () {
-    this.refreshGames()
   }
 }
 </script>
