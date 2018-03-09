@@ -3,10 +3,11 @@ import axios from 'axios'
 const server = 'http://localhost:3000'
 
 const state = {
-  message: '',
+  messages: [],
+  errors: [],
+
   games: [],
   game: null,
-  errors: [],
   genres: [
     'Genre 1',
     'Genre 2'
@@ -18,17 +19,29 @@ const state = {
 }
 
 const mutations = {
-  updateMessage (state, payload) {
-    state.message = payload
-  },
-  updateGames (state, games) {
-    state.games = games
-  },
-  updateGame (state, game) {
-    state.game = game
+  addMessage (state, payload) {
+    state.messages.push(payload)
+    console.log('Messages')
+    console.log(state.messages)
   },
   addError (state, error) {
+    console.error('Error')
+    console.error(error)
     state.errors.push(error)
+  },
+  load (state, game) {
+    state.game = game
+  },
+  update (state, payload) {
+    Object.keys(payload).forEach(function (key, index) {
+      state.game[key] = payload[key]
+    })
+    // console.log(state.game)
+    // state.game.message = payload
+  },
+  setGames (state, games) {
+    state.games = games
+    console.log(state.games)
   }
 }
 
@@ -37,16 +50,12 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.get(server + '/games')
         .then(response => {
-          console.log(response)
-          commit('updateMessage', response.data)
-          commit('updateGames', response.data)
+          commit('addMessage', response.data)
+          commit('setGames', response.data)
           resolve()
         })
         .catch(error => {
-          console.log(error)
-          commit('addError', {
-            error: error
-          })
+          commit('addError', { error: error })
           resolve()
         })
     })
@@ -55,15 +64,12 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.get(server + '/games/' + id)
         .then(response => {
-          console.log(response)
-          commit('updateGame', response.data)
+          commit('addMessage', response.data)
+          commit('load', response.data)
           resolve()
         })
         .catch(error => {
-          console.log(error)
-          commit('addError', {
-            error: error
-          })
+          commit('addError', { error: error })
           resolve()
         })
     })
@@ -73,14 +79,11 @@ const actions = {
       axios.put(server + '/games/' + game._id, game)
         .then(response => {
           console.log('Save sent')
-          console.log(response)
+          commit('addMessage', response)
           resolve()
         })
         .catch(error => {
-          console.log(error)
-          commit('addError', {
-            error: error
-          })
+          commit('addError', { error: error })
           resolve()
         })
     })

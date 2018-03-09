@@ -41,8 +41,8 @@ export default {
     refreshGames () {
       this.$store.dispatch('game/refreshMessage').then(() => {
         console.log('Games refreshed')
-        console.log(this.$store.state.game.message)
-        this.items = this.$store.state.game.message
+        console.log(this.$store.state.game.messages)
+        this.items = this.$store.state.game.games
       })
     }
   },

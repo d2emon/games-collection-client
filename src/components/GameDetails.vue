@@ -1,5 +1,5 @@
 <template>
-  <v-card  flat v-if="game">
+  <v-card flat v-if="game">
     <v-card-title>
       <v-layout row wrap>
         <v-flex xs3>
@@ -50,7 +50,7 @@
               >
                 <v-card>
                   <v-card-text class="game-details">
-                    <game-details-main :game="game" />
+                    <game-details-main />
                   </v-card-text>
                 </v-card>
               </v-tabs-content>
@@ -60,62 +60,7 @@
               >
                 <v-card>
                   <v-card-text class="game-details">
-                <v-layout row wrap>
-                <v-flex xs12>
-                  <v-text-field name="rate" type="number" label="Rate" id="rate" v-model="game.rate"></v-text-field>
-                  <v-slider v-model="game.rate" thumb-label step="10" ticks></v-slider>
-                </v-flex>
-                <v-flex xs6>
-                  <v-text-field name="progress" type="number" label="Progress" id="progress"i v-model="game.progress"></v-text-field>
-                </v-flex>
-                <v-flex xs6>
-                  <v-menu
-                    lazy
-                    :close-on-content-click="false"
-                    v-model="selectAddDate"
-                    transition="scale-transition"
-                    offset-y
-                    full-width
-                    :nudge-right="40"
-                    max-width="290px"
-                    min-width="290px"
-                  >
-                    <v-text-field
-                      slot="activator"
-                      label="Date"
-                      v-model="game.added"
-                      prepend-icon="event"
-                      readonly
-                    ></v-text-field>
-                    <v-date-picker v-model="game.added" no-title scrollable actions>
-                      <template slot-scope="{ save, cancel }">
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
-                          <v-btn flat color="primary" @click="save">OK</v-btn>
-                        </v-card-actions>
-                      </template>
-                    </v-date-picker>
-                  </v-menu>
-                </v-flex>
-                <v-flex xs6>
-                  <v-card>
-                    <v-card-text>
-                      <img :src="game.imageURL">
-                    </v-card-text>
-                  </v-card>
-                </v-flex>
-                <v-flex xs6>
-                  <v-card>
-                    <v-card-text>
-                      <img :src="game.imageURL">
-                    </v-card-text>
-                  </v-card>
-                </v-flex>
-                <v-flex xs12>
-                  <v-text-field multi-line name="comments" label="Comments" id="comments"></v-text-field>
-                </v-flex>
-                </v-layout>
+                    <!-- game-details-details :game="game" / -->
                   </v-card-text>
                 </v-card>
               </v-tabs-content>
@@ -125,7 +70,7 @@
               >
                 <v-card>
                   <v-card-text class="game-details">
-                <h1>Hints</h1>
+                    <game-details-hints :game="game" />
                   </v-card-text>
                 </v-card>
               </v-tabs-content>
@@ -135,8 +80,7 @@
               >
                 <v-card>
                   <v-card-text class="game-details">
-                <h1>Hands</h1>
-                <div> Game: {{game}}</div>
+                    <game-details-hands :game="game" />
                   </v-card-text>
                 </v-card>
               </v-tabs-content>
@@ -146,22 +90,7 @@
               >
                 <v-card>
                   <v-card-text class="game-details">
-                <v-card flat>
-                <v-card-text>
-                  <v-layout column align-center>
-                    <h1>{{ msg }}</h1>
-                    <img src="/public/v.png" alt="Vuetify.js" class="mb-5" />
-                    <blockquote>
-                      &#8220;First, solve the problem. Then, write the code.&#8221;
-                      <footer>
-                        <small>
-                          <em>&mdash;John Johnson</em>
-                        </small>
-                      </footer>
-                    </blockquote>
-                  </v-layout>
-                </v-card-text>
-                </v-card>
+                    <game-details-tags :game="game" />
                   </v-card-text>
                 </v-card>
               </v-tabs-content>
@@ -175,6 +104,10 @@
 
 <script>
 import GameDetailsMain from './GameDetailsMain'
+import GameDetailsDetails from './GameDetailsDetails'
+import GameDetailsHints from './GameDetailsHints'
+import GameDetailsHands from './GameDetailsHands'
+import GameDetailsTags from './GameDetailsTags'
 
 export default {
   name: 'GameDetails',
@@ -182,7 +115,11 @@ export default {
     id: null
   },
   components: {
-    GameDetailsMain
+    GameDetailsMain,
+    GameDetailsDetails,
+    GameDetailsHints,
+    GameDetailsHands,
+    GameDetailsTags
   },
   data: () => ({
     game: null,
@@ -196,10 +133,10 @@ export default {
     loadGame: function (id) {
       this.$store.dispatch('game/loadGame', id).then(() => {
         console.log('Game loaded')
-        console.log(this.$store.state.game.message)
+        console.log(this.$store.state.game.messages)
         console.log('Game')
-        console.log(this.$store.state.game.game)
         this.game = this.$store.state.game.game
+        console.log(this.$store.state.game)
       })
     },
     saveGame: function () {
