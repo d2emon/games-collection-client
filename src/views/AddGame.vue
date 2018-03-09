@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import GameDetails from './GameDetails'
+import GameDetails from '@/components/GameDetails'
 
 export default {
   name: 'Default',

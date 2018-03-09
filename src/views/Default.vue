@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import GameList from './GameList'
-import GameDetails from './GameDetails'
+import GameList from '@/components/GameList'
+import GameDetails from '@/components/GameDetails'
 
 export default {
   name: 'Default',
@@ -37,13 +37,5 @@ h1, h2 {
 }
 a {
   color: #42b983;
-}
-#gameDetails {
-  height: 80vh;
-  overflow: auto;
-}
-#gameList {
-  height: 80vh;
-  overflow: auto;
 }
 </style>

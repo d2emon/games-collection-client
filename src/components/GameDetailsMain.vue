@@ -1,6 +1,4 @@
 <template>
-  <v-card>
-    <v-card-text>
               <v-layout row wrap>
                 <v-flex xs4>
                   <v-layout column>
@@ -60,8 +58,6 @@
                   <v-text-field multi-line name="description" label="Description" id="description" v-model="game.description"></v-text-field>
                 </v-flex>
               </v-layout>
-    </v-card-text>
-  </v-card>
 </template>
 
 <script>

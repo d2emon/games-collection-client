@@ -1,6 +1,27 @@
 <template>
-  <v-card v-if="game">
-    <v-layout row wrap>
+  <v-card  flat v-if="game">
+    <v-card-title>
+      <v-layout row wrap>
+        <v-flex xs3>
+          <v-text-field
+            name="game-id"
+            label="Game ID"
+            id="gameid"
+            v-model="game._id"
+          ></v-text-field>
+        </v-flex>
+        <v-flex xs9>
+          <v-text-field
+            name="title"
+            label="Game Title"
+            id="title"
+            v-model="game.name"
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+    </v-card-title>
+    <v-card-text class="pa-0">
+      <v-layout row wrap>
         <v-btn
           color="pink"
           dark
@@ -12,48 +33,34 @@
         >
           <v-icon>add</v-icon>
         </v-btn>
-      <v-flex xs12>
-        <v-layout row wrap>
-          <v-flex xs3>
-            <v-text-field
-              name="game-id"
-              label="Game ID"
-              id="gameid"
-              v-model="game._id"
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs9>
-            <v-text-field
-              name="title"
-              label="Game Title"
-              id="title"
-              v-model="game.name"
-            ></v-text-field>
-          </v-flex>
-        </v-layout>
-      </v-flex>
-      <v-flex xs12 id="gameDetails">
-        <v-tabs v-model="active">
-          <v-tabs-bar class="primary" dark>
-            <v-tabs-item key="Common" :href="'#Common'" ripple>Common</v-tabs-item>
-            <v-tabs-item key="Details" :href="'#Details'" ripple>Details</v-tabs-item>
-            <v-tabs-item key="Hints" :href="'#Hints'" ripple>Hints</v-tabs-item>
-            <v-tabs-item key="Hands" :href="'#Hands'" ripple>Hands</v-tabs-item>
-            <v-tabs-item key="Tags" :href="'#Tags'" ripple>Tags</v-tabs-item>
-            <v-tabs-slider color="yellow"></v-tabs-slider>
-          </v-tabs-bar>
-          <v-tabs-items>
-            <v-tabs-content
-              key="Common"
-              id="Common"
-            >
-              <game-details-main :game="game" />
-            </v-tabs-content>
-            <v-tabs-content
-              key="Details"
-              id="Details"
-            >
-              <v-layout row wrap>
+        <v-flex xs12 id="gameDetails">
+          <v-tabs v-model="active">
+            <v-tabs-bar class="primary" dark>
+              <v-tabs-item key="Common" :href="'#Common'" ripple>Common</v-tabs-item>
+              <v-tabs-item key="Details" :href="'#Details'" ripple>Details</v-tabs-item>
+              <v-tabs-item key="Hints" :href="'#Hints'" ripple>Hints</v-tabs-item>
+              <v-tabs-item key="Hands" :href="'#Hands'" ripple>Hands</v-tabs-item>
+              <v-tabs-item key="Tags" :href="'#Tags'" ripple>Tags</v-tabs-item>
+              <v-tabs-slider color="yellow"></v-tabs-slider>
+            </v-tabs-bar>
+            <v-tabs-items>
+              <v-tabs-content
+                key="Common"
+                id="Common"
+              >
+                <v-card>
+                  <v-card-text class="game-details">
+                    <game-details-main :game="game" />
+                  </v-card-text>
+                </v-card>
+              </v-tabs-content>
+              <v-tabs-content
+                key="Details"
+                id="Details"
+              >
+                <v-card>
+                  <v-card-text class="game-details">
+                <v-layout row wrap>
                 <v-flex xs12>
                   <v-text-field name="rate" type="number" label="Rate" id="rate" v-model="game.rate"></v-text-field>
                   <v-slider v-model="game.rate" thumb-label step="10" ticks></v-slider>
@@ -108,26 +115,38 @@
                 <v-flex xs12>
                   <v-text-field multi-line name="comments" label="Comments" id="comments"></v-text-field>
                 </v-flex>
-              </v-layout>
-            </v-tabs-content>
-            <v-tabs-content
-              :key="'Hints'"
-              :id="'Hints'"
-            >
-              <h1>Hints</h1>
-            </v-tabs-content>
-            <v-tabs-content
-              :key="'Hands'"
-              :id="'Hands'"
-            >
-              <h1>Hands</h1>
-              <div> Game: {{game}}</div>
-            </v-tabs-content>
-            <v-tabs-content
-              :key="'Tags'"
-              :id="'Tags'"
-            >
-              <v-card flat>
+                </v-layout>
+                  </v-card-text>
+                </v-card>
+              </v-tabs-content>
+              <v-tabs-content
+                :key="'Hints'"
+                :id="'Hints'"
+              >
+                <v-card>
+                  <v-card-text class="game-details">
+                <h1>Hints</h1>
+                  </v-card-text>
+                </v-card>
+              </v-tabs-content>
+              <v-tabs-content
+                :key="'Hands'"
+                :id="'Hands'"
+              >
+                <v-card>
+                  <v-card-text class="game-details">
+                <h1>Hands</h1>
+                <div> Game: {{game}}</div>
+                  </v-card-text>
+                </v-card>
+              </v-tabs-content>
+              <v-tabs-content
+                :key="'Tags'"
+                :id="'Tags'"
+              >
+                <v-card>
+                  <v-card-text class="game-details">
+                <v-card flat>
                 <v-card-text>
                   <v-layout column align-center>
                     <h1>{{ msg }}</h1>
@@ -142,12 +161,15 @@
                     </blockquote>
                   </v-layout>
                 </v-card-text>
-              </v-card>
-            </v-tabs-content>
-          </v-tabs-items>
-        </v-tabs>
-      </v-flex>
-    </v-layout>
+                </v-card>
+                  </v-card-text>
+                </v-card>
+              </v-tabs-content>
+            </v-tabs-items>
+          </v-tabs>
+        </v-flex>
+      </v-layout>
+    </v-card-text>
   </v-card>
 </template>
 
@@ -208,8 +230,8 @@ h1, h2 {
 a {
   color: #42b983;
 }
-#gameDetails {
-  height: 80vh;
+.game-details {
+  height: 62vh;
   overflow: auto;
 }
 </style>
