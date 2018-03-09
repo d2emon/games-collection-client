@@ -1,160 +1,115 @@
 <template>
-
-    <v-flex xs8 v-if="game">
-      <v-layout row wrap>
-        <v-flex xs12>
-            <v-btn
-              color="pink"
-              dark
-              fixed
-              bottom
-              right
-              fab
-              @click="saveGame"
+  <v-card v-if="game">
+    <v-layout row wrap>
+        <v-btn
+          color="pink"
+          dark
+          fixed
+          bottom
+          right
+          fab
+          @click="saveGame"
+        >
+          <v-icon>add</v-icon>
+        </v-btn>
+      <v-flex xs12>
+        <v-layout row wrap>
+          <v-flex xs3>
+            <v-text-field
+              name="game-id"
+              label="Game ID"
+              id="gameid"
+              v-model="game._id"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs9>
+            <v-text-field
+              name="title"
+              label="Game Title"
+              id="title"
+              v-model="game.name"
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+      <v-flex xs12 id="gameDetails">
+        <v-tabs v-model="active">
+          <v-tabs-bar class="primary" dark>
+            <v-tabs-item key="Common" :href="'#Common'" ripple>Common</v-tabs-item>
+            <v-tabs-item key="Details" :href="'#Details'" ripple>Details</v-tabs-item>
+            <v-tabs-item key="Hints" :href="'#Hints'" ripple>Hints</v-tabs-item>
+            <v-tabs-item key="Hands" :href="'#Hands'" ripple>Hands</v-tabs-item>
+            <v-tabs-item key="Tags" :href="'#Tags'" ripple>Tags</v-tabs-item>
+            <v-tabs-slider color="yellow"></v-tabs-slider>
+          </v-tabs-bar>
+          <v-tabs-items>
+            <v-tabs-content
+              key="Common"
+              id="Common"
             >
-              <v-icon>add</v-icon>
-            </v-btn>
-            <v-layout row wrap>
-              <v-flex xs3>
-                <v-text-field
-                  name="game-id"
-                  label="Game ID"
-                  id="gameid"
-                  v-model="game._id"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs9>
-                <v-text-field
-                  name="title"
-                  label="Game Title"
-                  id="title"
-                  v-model="game.name"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12 id="gameDetails">
-                <v-tabs v-model="active">
-                  <v-tabs-bar class="primary" dark>
-                    <v-tabs-item key="Common" :href="'#Common'" ripple>Common</v-tabs-item>
-                    <v-tabs-item key="Details" :href="'#Details'" ripple>Details</v-tabs-item>
-                    <v-tabs-item key="Hints" :href="'#Hints'" ripple>Hints</v-tabs-item>
-                    <v-tabs-item key="Hands" :href="'#Hands'" ripple>Hands</v-tabs-item>
-                    <v-tabs-item key="Tags" :href="'#Tags'" ripple>Tags</v-tabs-item>
-                    <v-tabs-slider color="yellow"></v-tabs-slider>
-                  </v-tabs-bar>
-                  <v-tabs-items>
-                    <v-tabs-content
-                      key="Common"
-                      id="Common"
-                    >
-                      <v-layout row wrap>
-                        <v-flex xs6>
-                          <v-layout column>
-                            <v-card>
-                              <v-card-media :src="game.imageURL" height="200px"></v-card-media>
-                            </v-card>
-                          </v-layout>
-                        </v-flex>
-                        <v-flex xs6>
-                            <v-select v-bind:items="platforms" v-model="game.platform" label="Platform" item-value="text"></v-select>
-                            <v-text-field name="players" type="number" label="Players" id="players"></v-text-field>
-                            <v-select v-bind:items="companies" v-model="game.publisher" label="Publisher" item-text="title" item-value="id"></v-select>
-                            <v-select v-bind:items="companies" v-model="game.developer" label="Developer" item-text="title" item-value="id"></v-select>
-                            <v-menu
-                              lazy
-                              :close-on-content-click="false"
-                              v-model="selectDate"
-                              transition="scale-transition"
-                              offset-y
-                              full-width
-                              :nudge-right="40"
-                              max-width="290px"
-                              min-width="290px"
-                            >
-                              <v-text-field
-                                slot="activator"
-                                label="Release Date"
-                                v-model="game.release"
-                                prepend-icon="event"
-                                readonly
-                              ></v-text-field>
-                              <v-date-picker v-model="game.release" no-title scrollable actions>
-                                <template slot-scope="{ save, cancel }">
-                                  <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
-                                    <v-btn flat color="primary" @click="save">OK</v-btn>
-                                  </v-card-actions>
-                                </template>
-                              </v-date-picker>
-                            </v-menu>
-                            <v-select v-bind:items="genres" v-model="game.genre" label="Genre" item-value="text"></v-select>
-                        </v-flex>
-                        <v-flex xs12>
-                          <v-text-field multi-line name="description" label="Description" id="description" v-model="game.description"></v-text-field>
-                        </v-flex>
-                      </v-layout>
-                    </v-tabs-content>
-                    <v-tabs-content
-                      key="Details"
-                      id="Details"
-                    >
-                      <v-layout row wrap>
-                        <v-flex xs12>
-                          <v-text-field name="rate" type="number" label="Rate" id="rate" v-model="game.rate"></v-text-field>
-                          <v-slider v-model="game.rate" thumb-label step="10" ticks></v-slider>
-                        </v-flex>
-                        <v-flex xs6>
-                          <v-text-field name="progress" type="number" label="Progress" id="progress"i v-model="game.progress"></v-text-field>
-                        </v-flex>
-                        <v-flex xs6>
-                          <v-menu
-                            lazy
-                            :close-on-content-click="false"
-                            v-model="selectAddDate"
-                            transition="scale-transition"
-                            offset-y
-                            full-width
-                            :nudge-right="40"
-                            max-width="290px"
-                            min-width="290px"
-                          >
-                            <v-text-field
-                              slot="activator"
-                              label="Date"
-                              v-model="game.added"
-                              prepend-icon="event"
-                              readonly
-                            ></v-text-field>
-                            <v-date-picker v-model="game.added" no-title scrollable actions>
-                              <template slot-scope="{ save, cancel }">
-                                <v-card-actions>
-                                  <v-spacer></v-spacer>
-                                  <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
-                                  <v-btn flat color="primary" @click="save">OK</v-btn>
-                                </v-card-actions>
-                              </template>
-                            </v-date-picker>
-                          </v-menu>
-                        </v-flex>
-                        <v-flex xs6>
-                          <v-card>
-                            <v-card-text>
-                              <img :src="game.imageURL">
-                            </v-card-text>
-                          </v-card>
-                        </v-flex>
-                        <v-flex xs6>
-                          <v-card>
-                            <v-card-text>
-                              <img :src="game.imageURL">
-                            </v-card-text>
-                          </v-card>
-                        </v-flex>
-                        <v-flex xs12>
-                          <v-text-field multi-line name="comments" label="Comments" id="comments"></v-text-field>
-                        </v-flex>
-                      </v-layout>
-                    </v-tabs-content>
+              <game-details-main :game="game" />
+            </v-tabs-content>
+            <v-tabs-content
+              key="Details"
+              id="Details"
+            >
+              <v-layout row wrap>
+                <v-flex xs12>
+                  <v-text-field name="rate" type="number" label="Rate" id="rate" v-model="game.rate"></v-text-field>
+                  <v-slider v-model="game.rate" thumb-label step="10" ticks></v-slider>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field name="progress" type="number" label="Progress" id="progress"i v-model="game.progress"></v-text-field>
+                </v-flex>
+                <v-flex xs6>
+                  <v-menu
+                    lazy
+                    :close-on-content-click="false"
+                    v-model="selectAddDate"
+                    transition="scale-transition"
+                    offset-y
+                    full-width
+                    :nudge-right="40"
+                    max-width="290px"
+                    min-width="290px"
+                  >
+                    <v-text-field
+                      slot="activator"
+                      label="Date"
+                      v-model="game.added"
+                      prepend-icon="event"
+                      readonly
+                    ></v-text-field>
+                    <v-date-picker v-model="game.added" no-title scrollable actions>
+                      <template slot-scope="{ save, cancel }">
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
+                          <v-btn flat color="primary" @click="save">OK</v-btn>
+                        </v-card-actions>
+                      </template>
+                    </v-date-picker>
+                  </v-menu>
+                </v-flex>
+                <v-flex xs6>
+                  <v-card>
+                    <v-card-text>
+                      <img :src="game.imageURL">
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+                <v-flex xs6>
+                  <v-card>
+                    <v-card-text>
+                      <img :src="game.imageURL">
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field multi-line name="comments" label="Comments" id="comments"></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-tabs-content>
             <v-tabs-content
               :key="'Hints'"
               :id="'Hints'"
@@ -189,34 +144,27 @@
                 </v-card-text>
               </v-card>
             </v-tabs-content>
-                  </v-tabs-items>
-                </v-tabs>
-              </v-flex>
-            </v-layout>
-          </v-flex>
-        </v-layout>
-    </v-flex>
-
+          </v-tabs-items>
+        </v-tabs>
+      </v-flex>
+    </v-layout>
+  </v-card>
 </template>
 
 <script>
+import GameDetailsMain from './GameDetailsMain'
+
 export default {
   name: 'GameDetails',
   props: {
     id: null
   },
+  components: {
+    GameDetailsMain
+  },
   data: () => ({
     game: null,
     msg: 'Message',
-    platforms: [
-      'PC',
-      'Speccy'
-    ],
-    companies: [],
-    genres: [
-      'Genre 1',
-      'Genre 2'
-    ],
 
     active: null,
     selectDate: null,
@@ -224,14 +172,6 @@ export default {
   }),
   methods: {
     loadGame: function (id) {
-      this.$store.dispatch('loadCompanies').then(() => {
-        console.log('Companies loaded')
-        console.log(this.$store.state.message)
-        console.log('Company')
-        console.log(this.$store.state.companies)
-        this.companies = this.$store.state.companies
-      })
-
       this.$store.dispatch('loadGame', id).then(() => {
         console.log('Game loaded')
         console.log(this.$store.state.message)

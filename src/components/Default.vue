@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs4>
+    <v-flex xs3>
       <v-card>
         <v-toolbar color="primary" dark>
           <v-toolbar-side-icon></v-toolbar-side-icon>
@@ -29,7 +29,9 @@
         </v-list>
       </v-card>
     </v-flex>
-    <game-details :id="gameId"></game-details>
+    <v-flex xs9>
+      <game-details :id="gameId"></game-details>
+    </v-flex>
   </v-layout>
 </template>
 

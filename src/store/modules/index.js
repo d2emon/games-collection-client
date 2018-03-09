@@ -8,7 +8,15 @@ const state = {
   company: null,
   games: [],
   game: null,
-  errors: []
+  errors: [],
+  genres: [
+    'Genre 1',
+    'Genre 2'
+  ],
+  platforms: [
+    'PC',
+    'Speccy'
+  ]
 }
 
 const mutations = {
