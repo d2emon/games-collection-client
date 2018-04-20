@@ -1,6 +1,4 @@
-import axios from 'axios'
-
-const server = 'http://localhost:3000'
+import server from '../connect'
 
 const state = {
   messages: [],
@@ -48,7 +46,7 @@ const mutations = {
 const actions = {
   refreshMessage ({ commit }) {
     return new Promise((resolve, reject) => {
-      axios.get(server + '/games')
+      server.get('/games')
         .then(response => {
           commit('addMessage', response.data)
           commit('setGames', response.data)
@@ -62,7 +60,7 @@ const actions = {
   },
   loadGame ({ commit }, id) {
     return new Promise((resolve, reject) => {
-      axios.get(server + '/games/' + id)
+      server.get('/games/' + id)
         .then(response => {
           commit('addMessage', response.data)
           commit('load', response.data)
@@ -76,7 +74,7 @@ const actions = {
   },
   saveGame ({ commit }, game) {
     return new Promise((resolve, reject) => {
-      axios.put(server + '/games/' + game._id, game)
+      server.put('/games/' + game._id, game)
         .then(response => {
           console.log('Save sent')
           commit('addMessage', response)

@@ -1,6 +1,4 @@
-import axios from 'axios'
-
-const server = 'http://localhost:3000'
+import server from '../connect'
 
 const state = {
   message: '',
@@ -28,7 +26,7 @@ const actions = {
   loadCompanies ({ commit }) {
     console.log('Trying to get companies')
     return new Promise((resolve, reject) => {
-      axios.get(server + '/companies')
+      server.get('/companies')
         .then(response => {
           console.log(response)
           commit('updateCompanies', response.data)
@@ -45,7 +43,7 @@ const actions = {
   },
   loadCompany ({ commit }, id) {
     return new Promise((resolve, reject) => {
-      axios.get(server + '/companies/' + id)
+      server.get('/companies/' + id)
         .then(response => {
           console.log(response)
           commit('updateCompany', response.data)
@@ -63,7 +61,7 @@ const actions = {
   saveCompany ({ commit }, company) {
     return new Promise((resolve, reject) => {
       if (company._id) {
-        axios.put(server + '/companies/' + company._id, company)
+        server.put('/companies/' + company._id, company)
           .then(response => {
             console.log('Save sent')
             console.log(response)
@@ -77,7 +75,7 @@ const actions = {
             resolve()
           })
       } else {
-        axios.post(server + '/companies', company)
+        server.post('/companies', company)
           .then(response => {
             console.log('Create sent')
             console.log(response)
@@ -95,7 +93,7 @@ const actions = {
   },
   delCompany ({ commit }, company) {
     return new Promise((resolve, reject) => {
-      axios.delete(server + '/companies/' + company._id)
+      server.delete('/companies/' + company._id)
         .then(response => {
           console.log('Del sent')
           console.log(response)
