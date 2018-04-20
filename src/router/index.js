@@ -6,6 +6,7 @@ import Full from '@/containers/Full'
 // import Empty from '@/containers/Empty'
 
 // Views
+import IndexPage from '@/views/IndexPage'
 import Default from '@/views/Default'
 import AddGame from '@/views/AddGame'
 import Companies from '@/views/Companies'
@@ -47,8 +48,16 @@ export default new Router({
     },
     {
       path: '/',
-      redirect: '/games',
-      name: 'Home'
+      redirect: '/index',
+      name: 'Home',
+      component: Full,
+      children: [
+        {
+          path: 'index',
+          name: 'Index Page',
+          component: IndexPage
+        }
+      ]
     }
   ]
 })
