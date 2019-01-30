@@ -1,17 +1,18 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <h1 v-html="page.title"></h1>
-    </v-card-title>
-    <v-card-text v-html="page.html"></v-card-text>
-  </v-card>
+  <text-card
+    :page="page"
+  ></text-card>
 </template>
 
 <script>
+import TextCard from '@/components/TextCard'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'WikiPage',
+  components: {
+    TextCard
+  },
   computed: {
     ...mapState('wiki', ['page']),
     groupId: function () { return this.$route.params.group },

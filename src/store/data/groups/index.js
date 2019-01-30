@@ -28,16 +28,25 @@ const groups = [
 ]
 
 export default function () {
-  return groups.map((group, index) => {
-    const pages = wiki[group.slug]
+  return groups.map(({
+    title,
+    slug,
+    link,
+    description,
+    text,
+    page
+  }, index) => {
+    const pages = wiki[slug]
+    if (page) page.html = markdown(page.text)
     return {
       id: index,
-      title: group.title,
-      src: `/static/groups/${group.slug}.jpg`,
-      slug: group.slug,
-      link: group.link || `/group/${group.slug}`,
-      description: markdown(group.description),
-      text: markdown(group.text),
+      title,
+      src: `/static/groups/${slug}.jpg`,
+      slug,
+      link: link || `/group/${slug}`,
+      description: markdown(description),
+      text: markdown(text),
+      page: page,
       wiki: pages || {}
     }
   })

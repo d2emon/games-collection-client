@@ -20,9 +20,6 @@
           v-html="group.description"
         ></div>
         <template v-if="showText">
-          <div
-            v-html="group.text"
-          ></div>
           <v-list>
             <v-list-tile
               v-for="slug in Object.keys(group.wiki)"
@@ -34,6 +31,14 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list>
+          <div
+            v-html="group.text"
+          ></div>
+          <text-card
+            v-if="group.page"
+            :page="group.page"
+            :html="html"
+          />
         </template>
       </v-card-text>
       <v-card-actions v-if="showText">
@@ -49,21 +54,31 @@
 </template>
 
 <script>
-  export default {
-    name: 'GameGroup',
-    props: {
-      group: Object,
-      to: String,
-      imageHeight: {
-        type: String,
-        default: '200px'
-      },
-      showText: {
-        type: Boolean,
-        default: false
-      }
+import TextCard from '@/components/TextCard'
+
+export default {
+  name: 'GameGroup',
+  components: {
+    TextCard
+  },
+  data: () => ({
+    html: `
+      <h1>Text</h1>
+    `
+  }),
+  props: {
+    group: Object,
+    to: String,
+    imageHeight: {
+      type: String,
+      default: '200px'
+    },
+    showText: {
+      type: Boolean,
+      default: false
     }
   }
+}
 </script>
 
 <style scoped>
