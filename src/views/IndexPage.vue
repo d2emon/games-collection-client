@@ -23,12 +23,11 @@
             class="group-description"
             v-html="group.description"
           />
-          {{ group }}
-          <div
+          <!-- div
             v-if="group.text"
             class="group-description"
             v-html="group.text"
-          />
+          / -->
         </v-card-text>
         <v-card-actions>
           <v-btn
@@ -66,9 +65,9 @@ export default {
     /*
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
-    max-height: 110px;
     */
+    overflow: hidden;
+    height: 105px;
     text-align: justify;
   }
 </style>

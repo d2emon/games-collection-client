@@ -1,6 +1,8 @@
 import MarkdownIt from 'markdown-it'
 
-const markdown = new MarkdownIt()
+const markdown = new MarkdownIt({
+  linkify: true
+})
 
 export default text => {
   console.log(text)

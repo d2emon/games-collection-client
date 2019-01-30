@@ -1,18 +1,28 @@
 import city from './city'
+import yard from './yard'
+import www from './www'
+import cards from './cards'
+import gameBooks from './gamebooks'
+import videoGames from './videogames'
+import mini from './mini'
+import rpg from './rpg'
+import board from './board'
+import sports from './sports'
+import consoleGames from './console'
 import markdown from '../../../helpers/markdown'
 
 const groups = [
   city,
-  { title: 'Дворовые', slug: 'yard', description: '' },
-  { title: 'Интеллектуальные', slug: 'www', description: '' },
-  { title: 'Карточки', slug: 'cards', description: '' },
-  { title: 'Книгры', slug: 'gamebook', description: '' },
-  { title: 'Компьютерные', slug: 'videogames', description: '' },
-  { title: 'Миниатюры', slug: 'mini', description: '' },
-  { title: 'Ролевые', slug: 'rpg', description: '' },
-  { title: 'Настольные', slug: 'board', description: '' },
-  { title: 'Спорт', slug: 'sports', description: '' },
-  { title: 'Эмуляторы', slug: 'console', description: '' }
+  yard,
+  www,
+  cards,
+  gameBooks,
+  videoGames,
+  mini,
+  rpg,
+  board,
+  sports,
+  consoleGames,
 ]
 
 export default function () {
