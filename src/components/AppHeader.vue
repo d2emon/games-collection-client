@@ -37,7 +37,7 @@
         <v-icon dark>arrow_drop_down</v-icon>
       </v-toolbar-title>
       <v-list>
-        <v-list-tile v-for="group in groups" :key="group.title" @click="selectedGroup = group">
+        <v-list-tile v-for="group in index" :key="group.title" @click="selectedGroup = group">
           <v-list-tile-title v-text="group.title"></v-list-tile-title>
         </v-list-tile>
       </v-list>
@@ -58,7 +58,7 @@ export default {
       clipped: true,
       title: 'Games Collection',
       selectedGroup: null,
-      groups: [
+      index: [
         { title: 'Group 1' },
         { title: 'Group 2' },
         { title: 'Group 3' },
