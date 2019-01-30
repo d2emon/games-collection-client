@@ -7,6 +7,8 @@ import Full from '@/containers/Full'
 
 // Views
 import IndexPage from '@/views/IndexPage'
+import WikiPage from '@/views/WikiPage'
+import GroupPage from '@/views/GroupPage'
 import Default from '@/views/Default'
 import AddGame from '@/views/AddGame'
 import Companies from '@/views/Companies'
@@ -59,8 +61,24 @@ export default new Router({
         },
         {
           path: '/group/:group',
-          name: 'Group',
-          component: AddGame
+          name: 'Group Page',
+          component: GroupPage
+        }
+      ]
+    },
+    {
+      path: '/wiki',
+      name: 'Wiki',
+      component: Full,
+      children: [
+        {
+          path: '',
+          redirect: '/index'
+        },
+        {
+          path: ':group/:page',
+          name: 'Wiki Page',
+          component: WikiPage
         }
       ]
     }
