@@ -56,6 +56,11 @@ export default new Router({
           path: 'index',
           name: 'Index Page',
           component: IndexPage
+        },
+        {
+          path: '/group/:group',
+          name: 'Group',
+          component: AddGame
         }
       ]
     }

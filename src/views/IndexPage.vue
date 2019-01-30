@@ -1,11 +1,13 @@
 <template>
   <v-layout row wrap>
     <v-flex
-      xs2
+      xs3
       v-for="group in gameGroups"
       key="group.id"
     >
-      <v-card>
+      <v-card
+        :to="`/group/${group.slug}`"
+      >
         <v-card-title>
           <h1 v-text="group.title" />
         </v-card-title>
@@ -15,11 +17,19 @@
           :src="group.src"
         >
         </v-card-media>
-        <v-card-text
-          v-if="group.description"
-          class="group-description"
-          v-html="group.description"
-        />
+        <v-card-text>
+          <div
+            v-if="group.description"
+            class="group-description"
+            v-html="group.description"
+          />
+          {{ group }}
+          <div
+            v-if="group.text"
+            class="group-description"
+            v-html="group.text"
+          />
+        </v-card-text>
         <v-card-actions>
           <v-btn
             @click="selectGame(group)"
@@ -53,8 +63,12 @@ export default {
 
 <style>
   .group-description {
+    /*
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    max-height: 110px;
+    */
+    text-align: justify;
   }
 </style>

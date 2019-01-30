@@ -1,4 +1,5 @@
 import city from './city'
+import markdown from '../../../helpers/markdown'
 
 const groups = [
   city,
@@ -15,13 +16,15 @@ const groups = [
 ]
 
 export default function () {
+  console.log(markdown);
   return groups.map((group, index) => {
     return {
       id: index,
       title: group.title,
       src: `/static/groups/${group.slug}.jpg`,
       slug: group.slug,
-      description: group.description
+      description: markdown(group.description),
+      text: markdown(group.text),
     }
   })
 }
