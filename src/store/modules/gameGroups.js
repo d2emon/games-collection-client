@@ -1,14 +1,18 @@
 import getGroups from '../data/groups'
+import cityGames from '../data/games/city'
 
 const state = {
   gameGroups: [],
-  group: null
+  group: null,
+  games: []
 }
 
 const mutations = {
   clearGroups: state => { state.gameGroups = [] },
   addGroup: (state, group) => state.gameGroups.push(group),
-  setGroup: (state, group) => { state.group = group }
+  setGroup: (state, group) => { state.group = group },
+  clearGames: state => { state.games = [] },
+  addGame: (state, game) => state.games.push(game)
 }
 
 const actions = {
@@ -22,7 +26,10 @@ const actions = {
       .then(() => {
         const groups = state.gameGroups.filter(group => (group.slug === slug))
         if (groups.length <= 0) return commit('setGroup', null)
-        commit('setGroup', groups[0])
+        const group = groups[0]
+        commit('setGroup', group)
+        commit('clearGames')
+        if (group.slug === 'city') cityGames.forEach(game => commit('addGame', game))
       })
   }
 }

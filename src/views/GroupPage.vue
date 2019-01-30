@@ -6,7 +6,15 @@
       <game-group
         :group="group"
         :show-text="true"
-      />
+      >
+        <v-card-text>
+          <ul v-if="games">
+            <li v-for="game in games">
+              {{game.title}}
+            </li>
+          </ul>
+        </v-card-text>
+      </game-group>
     </v-flex>
   </v-layout>
 
@@ -22,7 +30,7 @@ export default {
     GameGroup
   },
   computed: {
-    ...mapState('gameGroups', ['gameGroups', 'group']),
+    ...mapState('gameGroups', ['gameGroups', 'group', 'games']),
     groupId: function () { return this.$route.params.group }
   },
   methods: {

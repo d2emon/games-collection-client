@@ -4,9 +4,7 @@
       <h1 v-text="page.title"></h1>
     </v-card-title>
     <v-card-text v-html="page.html"></v-card-text>
-    <hr />
-    <div v-html="html"></div>
-    {{html}}
+    <slot></slot>
   </v-card>
 </template>
 

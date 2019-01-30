@@ -37,14 +37,13 @@
           <text-card
             v-if="group.page"
             :page="group.page"
-            :html="html"
-          />
+          >
+            <slot></slot>
+          </text-card>
         </template>
       </v-card-text>
       <v-card-actions v-if="showText">
-        <v-btn
-          @click="selectGame(group)"
-        >
+        <v-btn>
           Button
         </v-btn>
       </v-card-actions>
@@ -61,11 +60,6 @@ export default {
   components: {
     TextCard
   },
-  data: () => ({
-    html: `
-      <h1>Text</h1>
-    `
-  }),
   props: {
     group: Object,
     to: String,
