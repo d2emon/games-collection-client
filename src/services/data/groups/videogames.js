@@ -19,56 +19,58 @@ Total War и многие другие). Такие проекты причис�
 ----
 
 * Other genres
-** Breakout clone
-** Exergame
-** Music
-** Rhythm
-** Non-game
-** Party
-** Programming
-** Puzzle
-** Sokoban
-** Tile-matching
+   * Breakout clone
+   * Exergame
+   * Music
+   * Rhythm
+   * Non-game
+   * Party
+   * Programming
+   * Puzzle
+   * Sokoban
+   * Tile-matching
 * Related concepts
-** Arcade game
-** Art game
-** Audio game
-** Casual game
-** Console game
-** Christian game
-** Clone game
-** Crossover game
-** Cult game
-** FMV
-** Indie game
-** Minigame
-** Nonlinear gameplay
-** Open world
-** Online game
-** Browser game
-** MMOG
-** Social network game
-** PC game
-** Serious game
-** Advergame
-** Edugame
-
-** Обучающая игра
-** Головоломка
-** Музыкальная игра
-** Игра для программистов
-** Аркада
-*** Платформер
-*** Пинбол
-** Нелинейный сюжет
-*** Открытый мир
-*** Программа-игрушка
-*** Песочница
-** Казуальная игра
+   * Arcade game
+   * Art game
+   * Audio game
+   * Casual game
+   * Console game
+   * Christian game
+   * Clone game
+   * Crossover game
+   * Cult game
+   * FMV
+   * Indie game
+   * Minigame
+   * Nonlinear gameplay
+   * Open world
+   * Online game
+   * Browser game
+   * MMOG
+   * Social network game
+   * PC game
+   * Serious game
+   * Advergame
+   * Edugame
 
 ----
 
-!!! Классификация по стилистике
+* Обучающая игра
+* Головоломка
+* Музыкальная игра
+* Игра для программистов
+* Аркада
+   * Платформер
+   * Пинбол
+* Нелинейный сюжет
+    * Открытый мир
+    * Программа-игрушка
+    * Песочница
+* Казуальная игра
+
+----
+
+## Классификация по стилистике
 
 * Вестерн
 * Киберпанк

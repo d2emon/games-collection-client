@@ -1,6 +1,6 @@
 import getGroups from './data/groups';
 import cityGames from './data/games/city';
-import wiki from './data/wiki'
+import wiki from './data/wiki';
 
 
 const gameService = {
