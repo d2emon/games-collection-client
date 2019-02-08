@@ -50,7 +50,7 @@ export default function () {
       link: link || `/group/${slug}`,
       description: markdown(description),
       text: markdown(text),
-      page: page,
+      page,
       wiki: pages || {}
     }
   })
