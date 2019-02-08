@@ -5,19 +5,19 @@
       v-for="group in gameGroups"
       :key="group.id"
     >
-      <game-group :group="group" :to="group.link" />
+      <game-group-small :group="group" :to="group.link" />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import GameGroup from '@/components/GameGroup'
+import GameGroupSmall from '@/components/GameGroupSmall'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'index-page',
   components: {
-    GameGroup
+    GameGroupSmall
   },
   computed: mapState('gameGroups', [ 'gameGroups' ]),
   methods: {

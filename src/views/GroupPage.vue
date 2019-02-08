@@ -8,11 +8,17 @@
         :show-text="true"
       >
         <v-card-text>
-          <ul v-if="games">
-            <li v-for="game in games">
-              {{game.title}}
-            </li>
-          </ul>
+          <v-list v-if="games">
+            <v-list-tile
+              v-for="(game, id) in games"
+              :key="id"
+              to="/index"
+            >
+              <v-list-tile-content>
+                <v-list-tile-title v-text="game.title"></v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
         </v-card-text>
       </game-group>
     </v-flex>

@@ -1,0 +1,15 @@
+export default [
+  { title: 'Об играх' },
+  { title: 'Экшн' },
+  { title: 'Адвентюры' },
+  { title: 'Аркады' },
+  { title: 'Freelance' },
+  { title: 'MUD' },
+  { title: 'Головоломки' },
+  { title: 'Настольные' },
+  { title: 'Приключения' },
+  { title: 'Ролевые игры' },
+  { title: 'Стратегии' },
+  { title: 'Симуляторы' },
+  { title: 'Смешанные' },
+];

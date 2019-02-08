@@ -1,6 +1,5 @@
 <template>
   <v-card
-    :class="showText ? '' : 'hide-text'"
     :to="to"
   >
     <template v-if="group">
@@ -16,33 +15,41 @@
       <v-card-text
         class="group-description"
       >
-        <div
-          v-html="group.description"
-        ></div>
-        <template v-if="showText">
-          <v-list>
-            <v-list-tile
-              v-for="slug in Object.keys(group.wiki)"
-              :key="slug"
-              :to="`/wiki/${group.slug}/${slug}`"
-            >
-              <v-list-tile-content>
-                <v-list-tile-title v-text="group.wiki[slug].title"></v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-          <div
-            v-html="group.text"
-          ></div>
-          <text-card
-            v-if="group.page"
-            :page="group.page"
+        <v-layout row wrap>
+          <v-flex
+            xs6
           >
-            <slot></slot>
-          </text-card>
-        </template>
+            <div
+              v-html="group.description"
+            ></div>
+            <v-list>
+              <v-list-tile
+                v-for="slug in Object.keys(group.wiki)"
+                :key="slug"
+                :to="`/wiki/${group.slug}/${slug}`"
+              >
+                <v-list-tile-content>
+                  <v-list-tile-title v-text="group.wiki[slug].title"></v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+          </v-flex>
+          <v-flex xs6>
+            <text-card
+              :page="group.page"
+            >
+              <v-layout row wrap>
+                <slot></slot>
+              </v-layout>
+            </text-card>
+          </v-flex>
+          <v-flex
+            xs12
+            v-html="group.text"
+          ></v-flex>
+        </v-layout>
       </v-card-text>
-      <v-card-actions v-if="showText">
+      <v-card-actions>
         <v-btn>
           Button
         </v-btn>
@@ -53,26 +60,22 @@
 </template>
 
 <script>
-import TextCard from '@/components/TextCard'
+import TextCard from '@/components/TextCard';
 
 export default {
   name: 'GameGroup',
   components: {
-    TextCard
+    TextCard,
   },
   props: {
     group: Object,
     to: String,
     imageHeight: {
       type: String,
-      default: '200px'
+      default: '200px',
     },
-    showText: {
-      type: Boolean,
-      default: false
-    }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
