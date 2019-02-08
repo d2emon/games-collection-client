@@ -1,17 +1,21 @@
-import city from './city'
-import yard from './yard'
-import www from './www'
-import cards from './cards'
-import gameBooks from './gamebooks'
-import videoGames from './videogames'
-import mini from './mini'
-import rpg from './rpg'
-import board from './board'
-import sports from './sports'
-import consoleGames from './console'
+import 'process';
 
-import markdown from '../../../helpers/markdown'
-import wiki from '../wiki'
+import city from './city';
+import yard from './yard';
+import www from './www';
+import cards from './cards';
+import gameBooks from './gamebooks';
+import videoGames from './videogames';
+import mini from './mini';
+import rpg from './rpg';
+import board from './board';
+import sports from './sports';
+import consoleGames from './console';
+
+import markdown from '../../../helpers/markdown';
+import wiki from '../wiki';
+
+const publicPath = process.env.BASE_URL;
 
 const groups = [
   city,
@@ -41,7 +45,7 @@ export default function () {
     return {
       id: index,
       title,
-      src: `/static/groups/${slug}.jpg`,
+      src: `${publicPath}groups/${slug}.jpg`,
       slug,
       link: link || `/group/${slug}`,
       description: markdown(description),

@@ -85,6 +85,6 @@ export default {
   }
   .hide-text .group-description {
     overflow: hidden;
-    height: 120px;
+    height: 14ex;
   }
 </style>

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import 'vuetify/dist/vuetify.min.css'
+// import 'vuetify/dist/vuetify.min.css'
 // import 'font-awesome/css/font-awesome.css'
 
 export default {
