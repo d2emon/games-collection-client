@@ -32,7 +32,7 @@ const actions = {
         commit('setGroup', group);
         commit('clearGames');
         return Service
-          .fetchGames(group.slug)
+          .fetchGenres(group.slug)
           .then(response => response.forEach(game => commit('addGame', game)));
       });
   },
